@@ -3,11 +3,11 @@
  */
 public class Item {
     String item;
-    int amount;
+    int quantity;
 
     public Item (String text){
         this.item = text;
-        this.amount = 0;
+        this.quantity = 1;
     }
 
 }
