@@ -51,7 +51,7 @@ public class Inventory {
                     System.out.println("Item not found");
                 }
                 else{
-                    System.out.println("What's the new Quantity?");
+                    System.out.println("What's the new quantity?");
                     String newValStr = scanner.nextLine();
                     int newVal = Integer.valueOf(newValStr);
                     found.quantity = newVal;
