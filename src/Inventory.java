@@ -1,6 +1,3 @@
-import com.sun.tools.javac.jvm.Items;
-
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,14 +5,16 @@ import java.util.Scanner;
  * Created by macbookair on 10/12/15.
  */
 public class Inventory {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
         ArrayList<Item> items = new ArrayList();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             for (Item element : items) {
-                System.out.println(element.quantity + " " + element.item);
+                System.out.format("%d %s\n %s\n", element.quantity,element.item,element.category);
             }
+
             System.out.println("Would you like to do?");
             System.out.println("[1] Add an Item");
             System.out.println("[2] Remove an item");
@@ -27,37 +26,61 @@ public class Inventory {
             if (choiceNum == 1) {
                 System.out.println("What would you like to add?");
                 String input = scanner.nextLine();
-                Item inventory = new Item(input);
+                System.out.println("What category?");
+                String category = scanner.nextLine();
+                Item inventory = createItem(input, 1, category);
                 items.add(inventory);
             }
             if (choiceNum == 2) {
                 System.out.println("Which Item Would You like to Remove?");
                 String edit = scanner.nextLine();
                 int removeNum = Integer.valueOf(edit);
-                items.remove(removeNum-1);
+                items.remove(removeNum - 1);
             }
-            if (choiceNum == 3){
+            if (choiceNum == 3) {
                 System.out.println("Which Quantity Would You Like to Update?");
                 String adjust = scanner.nextLine();
                 Item found = null;
-                for (Item thing : items){
-                    if (thing.item.equals(adjust)){
+                for (Item thing : items) {
+                    if (thing.item.equals(adjust)) {
                         found = thing;
                         break;
                     }
 
                 }
-                if (found == null){
+
+                if (found == null) {
                     System.out.println("Item not found");
-                }
-                else{
+                } else {
                     System.out.println("What's the new quantity?");
                     String newValStr = scanner.nextLine();
                     int newVal = Integer.valueOf(newValStr);
                     found.quantity = newVal;
                 }
+
+
             }
         }
+    }
+
+
+    static Item createItem (String name,int quantity, String category)throws Exception {
+        Item newItem = null;
+        if (category.toLowerCase() == "lance") {
+            newItem = new Lance(name, quantity);
+        } else if (category.toLowerCase().equals("potion")) {
+            newItem = new Potion(name, quantity);
+        } else if (category.toLowerCase().equals("armor")) {
+            newItem = new Armor(name, quantity);
+        } else if (category.toLowerCase().equals( "boots")) {
+            newItem = new Boots(name, quantity);
+        } else if (category.toLowerCase().equals("gold")) {
+            newItem = new Gold(name, quantity);
+        } else {
+            throw new Exception("Error occurred");
+        }
+
+        return newItem;
     }
 }
 

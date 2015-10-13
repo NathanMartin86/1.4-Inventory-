@@ -4,10 +4,5 @@
 public class Item {
     String item;
     int quantity;
-
-    public Item (String text){
-        this.item = text;
-        this.quantity = 1;
-    }
-
+    String category;
 }
